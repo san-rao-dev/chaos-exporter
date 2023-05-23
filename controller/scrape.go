@@ -194,14 +194,38 @@ func (awsConfig *AWSConfig) setAwsResultChaosMetrics(resultDetails ChaosResultDe
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
 	}))
-	awsConfig.putAwsMetricData(sess, "chaosresult_passed_experiments", "Count", resultDetails.PassedExperiments)
-	awsConfig.putAwsMetricData(sess, "chaosresult_failed_experiments", "Count", resultDetails.FailedExperiments)
-	awsConfig.putAwsMetricData(sess, "chaosresult_awaited_experiments", "Count", resultDetails.AwaitedExperiments)
-	awsConfig.putAwsMetricData(sess, "chaosresult_probe_success_percentage", "Count", resultDetails.ProbeSuccessPercentage)
-	awsConfig.putAwsMetricData(sess, "chaosresult_start_time", "Count", resultDetails.StartTime)
-	awsConfig.putAwsMetricData(sess, "chaosresult_end_time", "Count", resultDetails.EndTime)
-	awsConfig.putAwsMetricData(sess, "chaosresult_inject_time", "Count", float64(resultDetails.InjectionTime))
-	awsConfig.putAwsMetricData(sess, "chaosresult_total_duration", "Count", resultDetails.TotalDuration)
+	err := awsConfig.putAwsMetricData(sess, "chaosresult_passed_experiments", "Count", resultDetails.PassedExperiments);
+	if err != nil {
+		log.Errorf("Failed to put AWS metric data: %v", err)
+	}
+	err = awsConfig.putAwsMetricData(sess, "chaosresult_failed_experiments", "Count", resultDetails.FailedExperiments); 
+	if err != nil {
+		log.Errorf("Failed to put AWS metric data: %v", err)
+	}
+	err = awsConfig.putAwsMetricData(sess, "chaosresult_awaited_experiments", "Count", resultDetails.AwaitedExperiments);
+	if err != nil {
+		log.Errorf("Failed to put AWS metric data: %v", err)
+	}
+	err = awsConfig.putAwsMetricData(sess, "chaosresult_probe_success_percentage", "Count", resultDetails.ProbeSuccessPercentage);
+	if err != nil {
+		log.Errorf("Failed to put AWS metric data: %v", err)
+	}
+	err = awsConfig.putAwsMetricData(sess, "chaosresult_start_time", "Count", resultDetails.StartTime);
+	if err != nil {
+		log.Errorf("Failed to put AWS metric data: %v", err)
+	}
+	err = awsConfig.putAwsMetricData(sess, "chaosresult_end_time", "Count", resultDetails.EndTime);
+	if err != nil {
+		log.Errorf("Failed to put AWS metric data: %v", err)
+	}
+	err = awsConfig.putAwsMetricData(sess, "chaosresult_inject_time", "Count", float64(resultDetails.InjectionTime));
+	if err != nil {
+		log.Errorf("Failed to put AWS metric data: %v", err)
+	}
+	err = awsConfig.putAwsMetricData(sess, "chaosresult_total_duration", "Count", resultDetails.TotalDuration);
+	if err != nil {
+		log.Errorf("Failed to put AWS metric data: %v", err)
+	}
 }
 
 // setAwsNamespacedChaosMetrics sets aws metrics for all chaosresults
@@ -209,11 +233,26 @@ func (awsConfig *AWSConfig) setAwsNamespacedChaosMetrics(namespacedScopeMetrics 
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
 	}))
-	awsConfig.putAwsMetricData(sess, "total_passed_experiments", "Count", namespacedScopeMetrics.PassedExperiments)
-	awsConfig.putAwsMetricData(sess, "total_failed_experiments", "Count", namespacedScopeMetrics.FailedExperiments)
-	awsConfig.putAwsMetricData(sess, "total_awaited_experiments", "Count", namespacedScopeMetrics.AwaitedExperiments)
-	awsConfig.putAwsMetricData(sess, "experiments_run_count", "Count", namespacedScopeMetrics.ExperimentRunCount)
-	awsConfig.putAwsMetricData(sess, "experiments_installed_count", "Count", namespacedScopeMetrics.ExperimentsInstalledCount)
+	err := awsConfig.putAwsMetricData(sess, "total_passed_experiments", "Count", namespacedScopeMetrics.PassedExperiments)
+	if err != nil {
+		log.Errorf("Failed to put AWS metric data: %v", err)
+	}
+	err = awsConfig.putAwsMetricData(sess, "total_failed_experiments", "Count", namespacedScopeMetrics.FailedExperiments)
+	if err != nil {
+		log.Errorf("Failed to put AWS metric data: %v", err)
+	}
+	err = awsConfig.putAwsMetricData(sess, "total_awaited_experiments", "Count", namespacedScopeMetrics.AwaitedExperiments)
+	if err != nil {
+		log.Errorf("Failed to put AWS metric data: %v", err)
+	}
+	err = awsConfig.putAwsMetricData(sess, "experiments_run_count", "Count", namespacedScopeMetrics.ExperimentRunCount)
+	if err != nil {
+		log.Errorf("Failed to put AWS metric data: %v", err)
+	}
+	err = awsConfig.putAwsMetricData(sess, "experiments_installed_count", "Count", namespacedScopeMetrics.ExperimentsInstalledCount)
+	if err != nil {
+		log.Errorf("Failed to put AWS metric data: %v", err)
+	}
 }
 
 // putAwsMetricData put the metrics data in cloudwatch service
